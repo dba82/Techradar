@@ -1,0 +1,43 @@
+svg{
+    width: 50vw;
+}
+
+[db-ringsegment]{
+    fill: none;
+    stroke: silver;
+    stroke-width:0.3; 
+}
+.icon-number, .tooltip-text{
+    fill: white; 
+    font-family:sans-serif; 
+    stroke: none; 
+    font-size: 2.5pt; 
+    text-anchor:middle; 
+    dominant-baseline:middle;
+    cursor: default;
+}
+.tooltip-rect{
+    fill:black;
+}
+
+.tooltip-text{
+    dominant-baseline:hanging;
+    font-size: 2pt;
+}
+
+.adopt{
+    fill: #5ba300;
+    stroke: none;
+}
+.trial{ 
+    fill: #009eb0;
+    stroke: none;
+}
+.assess{
+    fill: #c7ba00;
+    stroke: none;
+}
+.hold{
+    fill: #e09b96;
+    stroke: none;
+}
