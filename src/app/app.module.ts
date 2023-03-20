@@ -9,6 +9,7 @@ import { FlatDirective } from './flat.directive';
 import { GridDirective } from './grid.directive';
 import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 import { GridItemDirective } from './grid-item.directive';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { GridItemDirective } from './grid-item.directive';
   ],
   imports: [
     FormsModule,
-    BrowserModule
+    BrowserModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,9 +28,14 @@
         <g *ngFor="let item of section.value; index as i;"
           dbGridItem 
           #gi="gridItem"
+          [ngbPopover]="popContent"
+          container="body"
+          triggers="mouseenter:mouseleave"
+          [popoverTitle]="item?.name"
+
           >
           <g>
-            <rect 
+            <!--<rect 
               *ngIf="showTooltipFor(item)"
               class="tooltip-rect"
               [attr.x]="gi.position ? gi.position!.x - 10 : 0" 
@@ -42,7 +47,7 @@
               class="tooltip-text"
               [attr.x]="gi.position ? gi.position!.x : 0" 
               [attr.y]="gi.position ? gi.position!.y -6  : 0"
-            >{{item?.name}}</text>
+            >{{item?.name}}</text>-->
           </g>
 
           <circle 
@@ -64,3 +69,7 @@
     </g>
   </g>
 </svg>
+
+<button >eregfr</button>
+
+<ng-template #popContent></ng-template>
