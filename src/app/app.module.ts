@@ -10,6 +10,7 @@ import { GridDirective } from './grid.directive';
 import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 import { GridItemDirective } from './grid-item.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TechSectorListsComponent } from './tech-sector-lists/tech-sector-lists.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     GridDirective,
     RingsegmentComponent,
     GridItemDirective,
+    TechSectorListsComponent,
   ],
   imports: [
     FormsModule,

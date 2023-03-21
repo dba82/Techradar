@@ -1,19 +1,44 @@
-<svg viewBox="0 0 200 200">
+
+<svg viewBox="-2000 -1000 5000 4000" #svg>
   <g db-ringsegment 
     [endAngle]="360" 
     [innerRadius]="0" 
+    [outerRadius]="1000"
+    [x]="1000"
+    [y]="1000"
     dbRingsegmentContainer="row">
 
-    <g *ngFor="let sector of data | keyvalue" 
+    <g *ngFor="let sector of dataService.data | keyvalue" 
       class="sector"  
+      #rs="db-ringsegment"
       db-ringsegment 
       dbRelativeSize 
       dbRingsegmentContainer="column">
 
-      <g *ngFor="let section of sector.value | keyvalue" 
+      <foreignObject 
+      [attr.x]="setOffPoint(rs, 1200, outerRadius+40, x)" 
+      [attr.y]="hangingPoint(rs, outerRadius+40)" 
+      [attr.width]="1200"
+      [attr.height]="height(this.outerRadius, this.dataService.data)">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 20pt; height:100%; width: 100%">
+          <h1 style="font-size: 30pt;margin:0; margin-bottom: 2pt;">{{sector.key}}</h1>
+          <main style="display:grid; grid-auto-columns: 1fr 1fr; justify-content:flex-start; grid-auto-flow:column">
+          <section *ngFor="let section of dataService.states" style="width:100%" >
+            <h2 style="font-size: 25pt;margin:0" class="{{section}}">{{section}}</h2>
+            <ul style="list-style: none; margin:0; font-size:20pt; padding:0" *ngFor="let item of sector.value[section]">
+              <li style="lineheight:1;"  >
+                <span [class]="{selected: item?.selected}" >{{item?.number}}. {{item?.name}}</span>
+              </li>
+            </ul>
+          </section>
+        </main>
+        </div>
+      </foreignObject>
+      
+      <g *ngFor="let section of dataService.states;" 
         db-ringsegment 
         dbRelativeSize 
-        dbGrid="2.5" 
+        [dbGrid]="rs.outerRadius/50" 
         #grid="grid">
 
         <g *ngIf="showGrid">
@@ -25,42 +50,28 @@
           </circle>
         </g>
 
-        <g *ngFor="let item of section.value; index as i;"
+        <g *ngFor="let item of sector.value[section]; index as i;"
           dbGridItem 
           #gi="gridItem"
-          [ngbPopover]="popContent"
+          [ngbTooltip]="item?.name"
           container="body"
           triggers="mouseenter:mouseleave"
-          [popoverTitle]="item?.name"
-
+          (mouseenter)="item!.selected = true"
+          (mouseleave)="item!.selected = false"
           >
-          <g>
-            <!--<rect 
-              *ngIf="showTooltipFor(item)"
-              class="tooltip-rect"
-              [attr.x]="gi.position ? gi.position!.x - 10 : 0" 
-              [attr.y]="gi.position ? gi.position!.y - 8  : 0"  
-              width="20" 
-              height="5" 
-              rx="1" />
-            <text 
-              class="tooltip-text"
-              [attr.x]="gi.position ? gi.position!.x : 0" 
-              [attr.y]="gi.position ? gi.position!.y -6  : 0"
-            >{{item?.name}}</text>-->
-          </g>
 
           <circle 
             [attr.cx]="gi.position?.x" 
             [attr.cy]="gi.position?.y" 
             [attr.r]="grid.elementRadius"
-            class="{{section.key}}"
+            class="{{section}}"
             >
           </circle>
           <text 
             class="icon-number"
             [attr.x]="gi.position?.x" 
             [attr.y]="gi.position?.y" 
+            [style]="{'font-size': grid.elementRadius ? +grid.elementRadius : 10}"
           > 
             {{item?.number}}
           </text>
@@ -69,7 +80,3 @@
     </g>
   </g>
 </svg>
-
-<button >eregfr</button>
-
-<ng-template #popContent></ng-template>

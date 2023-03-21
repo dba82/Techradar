@@ -5,7 +5,8 @@ import { Point } from '../point';
 @Component({
   selector: '[db-ringsegment]',
   templateUrl: './ringsegment.component.html',
-  styleUrls: ['./ringsegment.component.css']
+  styleUrls: ['./ringsegment.component.css'],
+  exportAs: 'db-ringsegment'
 })
 export class RingsegmentComponent {
   @Input() set x(x:number){

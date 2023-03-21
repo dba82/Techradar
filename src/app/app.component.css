@@ -1,7 +1,14 @@
-svg{
-    width: 50vw;
-}
 
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+svg{
+    width: 80%;
+    user-select: none;
+}
 [db-ringsegment]{
     fill: none;
     stroke: silver;
@@ -28,16 +35,26 @@ svg{
 .adopt{
     fill: #5ba300;
     stroke: none;
+    color:#5ba300
 }
 .trial{ 
     fill: #009eb0;
     stroke: none;
+    color: #009eb0;
+
 }
 .assess{
     fill: #c7ba00;
     stroke: none;
+    color: #c7ba00;
 }
 .hold{
     fill: #e09b96;
     stroke: none;
+    color: #e09b96;
+}
+
+.selected{
+    background-color: black;
+    color: white;
 }

@@ -39,7 +39,6 @@ export class GridDirective implements OnChanges{
     const position = freePositions[Math.floor(Math.random()*freePositions.length)];
     item.position = position[0];
     position[1] = false;
-    console.log(this.points)
   }
 
   ngOnChanges(){
