@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Path } from '../path';
 import { Point } from '../point';
 
@@ -9,6 +9,8 @@ import { Point } from '../point';
   exportAs: 'db-ringsegment'
 })
 export class RingsegmentComponent {
+  @ViewChild('pathElement') pathElement? : ElementRef<SVGPathElement>;
+
   @Input() set x(x:number){
     this._x = x;
     this._path = String(Path.ringSegment(new Point(this.x,this.y), this.outerRadius, this.innerRadius, this.startAngle, this.endAngle));
@@ -57,7 +59,6 @@ export class RingsegmentComponent {
   }
 
   get height(){
-    console.log(this.outerRadius, this.innerRadius)
     return this.outerRadius - this.innerRadius;
   }
 

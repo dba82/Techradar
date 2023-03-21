@@ -14,22 +14,14 @@ svg{
     stroke: silver;
     stroke-width:0.3; 
 }
-.icon-number, .tooltip-text{
+.icon-number{
     fill: white; 
     font-family:sans-serif; 
     stroke: none; 
-    font-size: 2.5pt; 
     text-anchor:middle; 
     dominant-baseline:middle;
     cursor: default;
-}
-.tooltip-rect{
-    fill:black;
-}
-
-.tooltip-text{
-    dominant-baseline:hanging;
-    font-size: 2pt;
+    user-select: none;
 }
 
 .adopt{
@@ -57,4 +49,22 @@ svg{
 .selected{
     background-color: black;
     color: white;
+}
+
+.dropzone.activeDropzone{
+    stroke-width:2;
+    stroke: black;
+}
+
+/*.dropzone.activeDropzone:hover{
+    stroke-width:30;
+    stroke: black;
+    stroke-dasharray: 1 1 1;
+}*/
+
+h1 .add-button, h2 .add-button, ul .add-button{
+    visibility: hidden;
+}
+h1:hover .add-button, h2:hover .add-button, ul:hover .add-button{
+    visibility: visible;
 }

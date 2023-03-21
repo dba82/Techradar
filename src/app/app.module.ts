@@ -11,6 +11,10 @@ import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 import { GridItemDirective } from './grid-item.directive';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TechSectorListsComponent } from './tech-sector-lists/tech-sector-lists.component';
+import { GeometryDirective } from './geometry.directive';
+import { DraggableDirective } from './draggable.directive';
+import { DropzoneDirective } from './dropzone.directive';
+import { DragzoneDirective } from './dragzone.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,10 @@ import { TechSectorListsComponent } from './tech-sector-lists/tech-sector-lists.
     RingsegmentComponent,
     GridItemDirective,
     TechSectorListsComponent,
+    GeometryDirective,
+    DraggableDirective,
+    DropzoneDirective,
+    DragzoneDirective
   ],
   imports: [
     FormsModule,
