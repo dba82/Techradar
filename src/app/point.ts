@@ -6,6 +6,10 @@ interface IVectorLike{
 export class Point {
     static zero = new Point(0,0);
 
+    static distance(p1: IVectorLike, p2:IVectorLike){
+        return Math.sqrt((p1.x-p2.x)**2 + (p1.y - p2.y)**2);
+    }
+
     static fromPolarCoordinates(angle:number, length:number, offsetPoint:Point = Point.zero){
         return new Point(
             offsetPoint.x + length * Math.sin(2*Math.PI*angle/360),

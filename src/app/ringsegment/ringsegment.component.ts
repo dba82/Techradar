@@ -9,6 +9,7 @@ import { Point } from '../point';
   exportAs: 'db-ringsegment'
 })
 export class RingsegmentComponent {
+  @Input() pointerEvents? : string;
   @ViewChild('pathElement') pathElement? : ElementRef<SVGPathElement>;
 
   @Input() set x(x:number){

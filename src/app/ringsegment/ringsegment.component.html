@@ -1,2 +1,2 @@
-<svg:path [attr.d]="path" #pathElement pointer-events="visible"></path>
+<svg:path [attr.d]="path" #pathElement [attr.pointer-events]="pointerEvents ?? 'none'"></path>
 <ng-content></ng-content>

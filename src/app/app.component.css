@@ -56,9 +56,12 @@ svg{
     stroke: black;
 }
 
-/*.dropzone.activeDropzone:hover{
-    stroke-width:30;
+.dropzone.overDropzone{
+    stroke-width:10;
     stroke: black;
     stroke-dasharray: 1 1 1;
-}*/
+}
 
+.isDragging{
+    cursor: none !important;
+}

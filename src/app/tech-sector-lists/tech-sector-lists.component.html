@@ -1,10 +1,14 @@
-<div xmlns="http://www.w3.org/1999/xhtml" style="cursor: default;user-select:none; font-size: 20pt; height:100%; width: 100%">
-    <h1 style="font-size: 30pt;margin:0; margin-bottom: 2pt;">{{sector.key}} <span class="add-button">+</span></h1>
-    <main style="display:grid; grid-auto-columns: 1fr 1fr; justify-content:flex-start; grid-auto-flow:column">
-    <section *ngFor="let section of dataService.states" style="width:100%" >
-      <h2 style="font-size: 25pt;margin:0" class="{{section}}">{{section}} <span class="add-button">+</span></h2>
-      <ul style="list-style: none; margin:0; font-size:20pt; padding:0" >
-        <li *ngFor="let item of sector.value[section]" style="lineheight:1;"  >
+<div xmlns="http://www.w3.org/1999/xhtml" id="container">
+    <h1>{{sector.key}} <span class="add-button">+</span></h1>
+    <main>
+    <section *ngFor="let section of dataService.states" >
+      <h2 class="{{section}}">{{section}} 
+        <span class="add-button">+</span>
+      </h2>
+      <ul>
+        <li *ngFor="let item of sector.value[section]" 
+        (mouseenter)="tooltipService.tooltipForItem(item)?.open(); item.selected = true;"
+        (mouseleave)="tooltipService.tooltipForItem(item)?.close(); item.selected = false;" >
           <span [class]="{selected: item?.selected}" >{{item?.number}}. {{item?.name}}</span>
         </li>
         <li class="add-button">+</li>

@@ -1,18 +1,19 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { DragzoneDirective } from './dragzone.directive';
+import { MouseInSvgService } from './mouse-in-svg.service';
 import { Point } from './point';
 
 @Directive({
   selector: '[dbDraggable]'
 })
 export class DraggableDirective implements AfterViewInit {
-  private anchor? : Point;
+  private anchor? : DOMPoint|Point;
   private dragging = false;
 
   @Input('dbDraggable') dragzone? : DragzoneDirective;
   @Input() itemData? : unknown;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, private mouseInSvgService:MouseInSvgService) { }
 
   ngAfterViewInit(){
     this.dragzone?.outside.subscribe(()=> this.reset())
@@ -20,9 +21,9 @@ export class DraggableDirective implements AfterViewInit {
 
   @HostListener('mousedown', ['$event'])
   grap(event: MouseEvent){
-    this.anchor = new Point(event.pageX, event.pageY);
+    this.anchor =  this.dragzone?.isSVG ? this.mouseInSvgService.svgPointFromMouseEvent(event) : new Point(event.pageX, event.pageY);
     this.dragging = true;
-    this.dragzone?.dragging.emit();
+    this.dragzone?.dragging.emit(true);
   }
 
   @HostListener('document:mouseup', ['$event'])
@@ -36,12 +37,17 @@ export class DraggableDirective implements AfterViewInit {
   @HostListener('document:mousemove', ['$event'])
   drag(event: MouseEvent){
     if (this.dragging){
-      this.elementRef.nativeElement.style = `pointer-events:none; transform: translate(${(event.pageX - this.anchor!.x!)*window.devicePixelRatio }px, ${(event.pageY - this.anchor!.y)*window.devicePixelRatio}px)`;
+      console.log("it goes")
+      const mouseposition = this.dragzone?.isSVG ? this.mouseInSvgService.svgPointFromMouseEvent(event) : new Point(event.pageX, event.pageY);
+      this.elementRef.nativeElement.style = `z-index:2000000;pointer-events:none; transform: translate(${(mouseposition.x- this.anchor!.x!) }px, ${(mouseposition.y - this.anchor!.y)}px)`;
+      console.log(mouseposition.x- this.anchor!.x!, mouseposition.y - this.anchor!.y);
     }
   }
 
   reset(){
     this.dragging = false;
     this.elementRef.nativeElement.style = `transform: none`;
+    this.dragzone?.dragging.emit(false);
+
   }
 }

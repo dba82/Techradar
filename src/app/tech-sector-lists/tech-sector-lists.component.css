@@ -32,3 +32,38 @@ h1 .add-button, h2 .add-button, ul .add-button{
 h1:hover .add-button, h2:hover .add-button, ul:hover .add-button{
     visibility: visible;
 }
+
+#container{
+    cursor: default;
+    user-select:none; 
+    font-size: 20pt; 
+    height:100%; 
+    width: 100%
+}
+h1{
+    font-size: 30pt;
+    margin:0; 
+    margin-bottom: 2pt;
+}
+main{
+    display:grid; 
+    grid-auto-columns: 1fr 1fr; 
+    justify-content:flex-start; 
+    grid-auto-flow:column;
+}
+section{
+    width:100%;
+}
+h2{
+    font-size: 25pt;
+    margin:0
+}
+ul{
+    list-style: none; 
+    margin:0; 
+    font-size:20pt; 
+    padding:0;
+}
+ul li{
+    lineheight:1;
+}

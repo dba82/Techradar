@@ -1,5 +1,6 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, Host, HostBinding, Input, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { DragzoneDirective } from './dragzone.directive';
+import { MouseInSvgService } from './mouse-in-svg.service';
 import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 
 @Directive({
@@ -12,18 +13,38 @@ export class DropzoneDirective implements AfterViewInit {
 
   @HostBinding('class.activeDropzone') active = false;
   @HostBinding('class.dropzone') dropzoneClass = true;
+  @HostBinding('class.overDropzone') overDropzone = false;
+
+  private svg?:any;
+
+  constructor(@Host() private ringsegmentComponent: RingsegmentComponent, private mouseInSvgService : MouseInSvgService) { }
   
-  constructor(@Host() private ringsegmentComponent: RingsegmentComponent) { }
-  
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event:MouseEvent){
+    if (this.active && this.mouseOverMe(event)){
+      this.overDropzone = true;
+    } else {
+      this.overDropzone = false;
+    }
+  }
+
+  mouseOverMe(event:MouseEvent){
+    return this.mouseInSvgService.mouseOverShape(event, this.ringsegmentComponent.pathElement!.nativeElement)
+  }
+
+
+
   ngAfterViewInit(){
     this.dragzone?.itemDropped.subscribe((data:any) => {
       this.active = false;
-      if (data.event.target === this.ringsegmentComponent.pathElement?.nativeElement){
-        this.dropped.emit(data.itemData)
+
+      if (this.mouseOverMe(data.event)){
+        this.dropped.emit(data.itemData);
       }
     });
-    this.dragzone?.dragging.subscribe((data:any) => {
-      this.active = true;
+
+    this.dragzone?.dragging.subscribe((b:boolean) => {
+      this.active = b;
     });
   }
 }

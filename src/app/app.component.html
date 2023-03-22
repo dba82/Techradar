@@ -1,5 +1,5 @@
 
-<svg viewBox="-2000 -1000 5000 4000" #svg>
+<svg viewBox="-2000 -1000 5000 4000" #svg [class]="{isDragging: isDragging}">
   <g db-ringsegment
     [endAngle]="360"
     [innerRadius]="0"
@@ -15,7 +15,8 @@
       dbGeometry
       dbRingsegmentContainer="column"
       dbDragzone
-
+      (dragging)="isDragging = $event;"
+      pointerEvents="visible"
       #rs="db-ringsegment"
       #grs="dbGeometry"
       #dz="dbDragzone"
@@ -50,7 +51,8 @@
         <g *ngFor="let item of getValueForIn(section, sector); index as i;"
           dbGridItem
           #gi="gridItem"
-           #tooltip ="ngbTooltip"
+          #tooltip="ngbTooltip"
+          [dbTooltipRemote]="{tooltip: tooltip, item: item}"
           [ngbTooltip]="item?.name"
           container="body"
           triggers="mouseenter:mouseleave"
@@ -71,7 +73,7 @@
             class="icon-number"
             [attr.x]="gi.position?.x" 
             [attr.y]="gi.position?.y" 
-            [style]="{'font-size': +grid.elementRadius}"
+            [style]="{'font-size': grid.elementRadius ? +grid.elementRadius : 10}"
           > 
             {{item?.number}}
           </text>

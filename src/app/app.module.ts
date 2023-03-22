@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RingsegmentContainerDirective } from './ringsegment-container.directive';
 import { RelativeSizeDirective } from './relative-size.directive';
-import { FlatDirective } from './flat.directive';
 import { GridDirective } from './grid.directive';
 import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 import { GridItemDirective } from './grid-item.directive';
@@ -15,13 +14,13 @@ import { GeometryDirective } from './geometry.directive';
 import { DraggableDirective } from './draggable.directive';
 import { DropzoneDirective } from './dropzone.directive';
 import { DragzoneDirective } from './dragzone.directive';
+import { TooltipRemoteDirective } from './tooltip-remote.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     RingsegmentContainerDirective,
     RelativeSizeDirective,
-    FlatDirective,
     GridDirective,
     RingsegmentComponent,
     GridItemDirective,
@@ -29,7 +28,8 @@ import { DragzoneDirective } from './dragzone.directive';
     GeometryDirective,
     DraggableDirective,
     DropzoneDirective,
-    DragzoneDirective
+    DragzoneDirective,
+    TooltipRemoteDirective
   ],
   imports: [
     FormsModule,

@@ -3,6 +3,9 @@ import { GridItemDirective } from './grid-item.directive';
 import { Point } from './point';
 import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 
+function isFree(pointsArrayItem:any){
+  return !pointsArrayItem[1];
+}
 @Directive({
   selector: '[dbGrid]',
   exportAs: 'grid'
@@ -12,7 +15,7 @@ export class GridDirective implements OnChanges{
 
   @ContentChildren(GridItemDirective) items? : QueryList<GridItemDirective>;
 
-  points : [Point, boolean][]= [];
+  points : [Point, any][]= [];
   constructor(@Self() @Inject(RingsegmentComponent) public ringsegment: RingsegmentComponent) { }
 
   gridForElementradius(radius:number){
@@ -24,8 +27,8 @@ export class GridDirective implements OnChanges{
         result.push(
           [
             Point.fromPolarCoordinates(as, rs, new Point(this.ringsegment.x, this.ringsegment.y)),
-            true
-            ] as [Point, boolean]);
+            undefined
+          ] as [Point, any]);
       }
     }
     this.points = result;
@@ -35,10 +38,16 @@ export class GridDirective implements OnChanges{
   }
 
   placeOnGrid(item: GridItemDirective){
-    const freePositions = this.points.filter(point=>point[1]);
+    const freePositions = this.points.filter(isFree);
     const position = freePositions[Math.floor(Math.random()*freePositions.length)];
     item.position = position[0];
-    position[1] = false;
+    position[1] = item;
+  }
+
+  placeCloseTo(item:GridItemDirective, point:{x:number, y:number}){
+    const position = this.points.filter(isFree).reduce((acc:any, b: any ) => Point.distance(point, b[0]) < acc ? b : acc, this.points[0])
+    item.position = position[0];
+    position[1] = item;
   }
 
   ngOnChanges(){
@@ -47,7 +56,9 @@ export class GridDirective implements OnChanges{
   }
   ngAfterContentInit(){
     this.items?.changes.subscribe(item=> {
-      this.placeOnGrid(item.last);
+      if (!item.last.position){
+        this.placeOnGrid(item.last);
+      }
     })
   }
 }
