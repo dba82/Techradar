@@ -416,9 +416,14 @@ export class DataService {
     }
 }
 
-states  = [ 'adopt', 'trial','assess','hold'] as any;
+currentHighestNumber = 73;
+counter = 1;
+states  = [ {name:'adopt', relativeSize: 1}, {name:'trial', relativeSize: 1},{name:'assess', relativeSize: 1},{name:'hold', relativeSize: 1}] as any;
   scalaObject(){
-    return this.states.reduce((a:Record<string, any>,b:string)=> a[b]=[], {} as Record<string, any>);
+    return this.states.reduce((a:Record<string, any>,b:{name:string})=> {
+        a[b.name]=[];
+        return a;
+    }, {} as Record<string, any>);
   }
 
   changeScalaCategory(event:any, newCategory:any){
@@ -426,21 +431,36 @@ states  = [ 'adopt', 'trial','assess','hold'] as any;
     event.formerCategory.splice(index, 1);
     newCategory.push(event.item);
     this.data = {...this.data};
-    console.log(event, newCategory, this.data)
-
   }
 
   addScalaCategoryAfter(name:string, after:string){
-    const index = this.states.indexOf(after as any);
-    this.states = [...this.states].splice(index, 0, name as any);
+//WENN ICH DAS TUE; DANN WERDEN DIE ITEMS NICHT NEU ANGEORDNET!!!
+
+    this.counter += 1;
+    name = name + this.counter;
+    const index = this.states.findIndex((x:any)=>x.name === after);
+    this.states.splice(index, 0, {name:name, relativeSize:1} );
+    this.states = [...this.states];
     let key : keyof typeof this.data;
     for (key in this.data){
       this.data[key][name] = [] as any[];
     }
     this.data = {...this.data}
   }
+
   addCategory(name:string){
-    this.data = {...this.data, [name]: this.scalaObject()}
+    this.counter += 1;
+    this.data = {...this.data, [`${name}${this.counter}`]: this.scalaObject()};
+}
+
+  addItemToScalaInCategory(state:string, category:string ){
+    this.currentHighestNumber += 1;
+    this.data[category][state].push({
+        number: this.currentHighestNumber,
+        name: 'Neues Item',
+        selected: false
+    });
+    this.data = {...this.data}
   }
 
 }
