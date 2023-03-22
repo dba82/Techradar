@@ -1,0 +1,34 @@
+
+.adopt{
+    fill: #5ba300;
+    stroke: none;
+    color:#5ba300
+}
+.trial{ 
+    fill: #009eb0;
+    stroke: none;
+    color: #009eb0;
+
+}
+.assess{
+    fill: #c7ba00;
+    stroke: none;
+    color: #c7ba00;
+}
+.hold{
+    fill: #e09b96;
+    stroke: none;
+    color: #e09b96;
+}
+
+.selected{
+    background-color: black;
+    color: white;
+}
+
+h1 .add-button, h2 .add-button, ul .add-button{
+    visibility: hidden;
+}
+h1:hover .add-button, h2:hover .add-button, ul:hover .add-button{
+    visibility: visible;
+}

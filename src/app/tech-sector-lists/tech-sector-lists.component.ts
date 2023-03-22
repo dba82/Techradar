@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'db-tech-sector-lists',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./tech-sector-lists.component.css']
 })
 export class TechSectorListsComponent {
+  @Input() sector? : any;
+  constructor(public dataService:DataService){}
 
 }
