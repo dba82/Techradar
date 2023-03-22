@@ -62,9 +62,3 @@ svg{
     stroke-dasharray: 1 1 1;
 }*/
 
-h1 .add-button, h2 .add-button, ul .add-button{
-    visibility: hidden;
-}
-h1:hover .add-button, h2:hover .add-button, ul:hover .add-button{
-    visibility: visible;
-}

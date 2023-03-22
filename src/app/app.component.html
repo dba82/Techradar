@@ -8,11 +8,11 @@
     [y]="1000"
     dbRingsegmentContainer="row">
 
-    <g *ngFor="let sector of dataService.data | keyvalue; index as i;"
-      class="sector"
-      db-ringsegment
-      dbGeometry
+    <g *ngFor="let sector of dataService.data | keyvalue; index as i;" 
+      class="sector"  
+      db-ringsegment 
       dbRelativeSize
+      dbGeometry
       dbRingsegmentContainer="column"
       dbDragzone
 
@@ -26,22 +26,7 @@
       [attr.y]="grs.adjacentBox(1200,40).y"
       [attr.width]="1200"
       [attr.height]="grs.height">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="cursor: default;user-select:none; font-size: 20pt; height:100%; width: 100%">
-          <h1 style="font-size: 30pt;margin:0; margin-bottom: 2pt;">{{sector.key}} <span class="add-button">+</span></h1>
-          <main style="display:grid; grid-auto-columns: 1fr 1fr; justify-content:flex-start; grid-auto-flow:column">
-          <section *ngFor="let section of dataService.states" style="width:100%" >
-            <h2 style="font-size: 25pt;margin:0" class="{{section}}">{{section}} <span class="add-button">+</span></h2>
-            <ul style="list-style: none; margin:0; font-size:20pt; padding:0" >
-              <li *ngFor="let item of getValueForIn(section, sector)" style="lineheight:1;"
-                  (mouseenter)="item!.selected = true;"
-                  (mouseleave)="item!.selected = false">
-                <span [class]="{selected: item?.selected}" >{{item?.number}}. {{item?.name}}</span>
-              </li>
-              <li class="add-button">+</li>
-            </ul>
-          </section>
-        </main>
-        </div>
+        <db-tech-sector-lists [sector]="sector"></db-tech-sector-lists>
       </foreignObject>
 
       <g *ngFor="let section of dataService.states;"
@@ -84,10 +69,10 @@
           </circle>
           <text
             class="icon-number"
-            [attr.x]="gi.position?.x"
-            [attr.y]="gi.position?.y"
-            [style]="{'font-size': grid.elementRadius ? +grid.elementRadius : 2}"
-          >
+            [attr.x]="gi.position?.x" 
+            [attr.y]="gi.position?.y" 
+            [style]="{'font-size': +grid.elementRadius}"
+          > 
             {{item?.number}}
           </text>
         </g>
