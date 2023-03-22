@@ -22,8 +22,8 @@ export class GeometryDirective{
   sicos(a:number){return this.cos(a) !== 0 ? this.cos(a)/Math.abs(this.cos(a)) : 1 }
   sisin(a:number){return this.sin(a) !== 0 ?this.sin(a)/Math.abs(this.sin(a)): 1}
 
-  midAngle(sec:any){
-    return sec.startAngle + (sec.endAngle - sec.startAngle)/2;
+  get midAngle(){
+    return this.ringsegment.startAngle + (this.ringsegment.endAngle - this.ringsegment.startAngle)/2;
   }
   angleQuadrant(angle:number){
     return {
@@ -45,12 +45,24 @@ export class GeometryDirective{
     }
   }
 
+  rowCenter(angle:number){
+    return Point.fromPolarCoordinates(angle%360, this.ringsegment.innerRadius + this.ringsegment.height/2, new Point(this.ringsegment.x, this.ringsegment.y));
+  }
+
+  columnCenter(radius:number){
+    return Point.fromPolarCoordinates(this.midAngle, radius, new Point(this.ringsegment.x, this.ringsegment.y))
+  }
+
+  oClock(n:number){
+    return (n/12)*(this.ringsegment.startAngle + this.ringsegment.angleSize)
+  }
+
   point(angle:number, length:number){
     return Point.fromPolarCoordinates(angle, length, new Point(this.ringsegment.x,this.ringsegment.y));
   }
 
   position(distance: number, width:number, height : number): Point{
-    let result = this.point(this.midAngle(this.ringsegment), distance);
+    let result = this.point(this.midAngle, distance);
     if (this.quadrant.left){
       result = result.move(-width,0);
     }

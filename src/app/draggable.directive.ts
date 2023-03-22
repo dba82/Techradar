@@ -13,7 +13,7 @@ export class DraggableDirective implements AfterViewInit {
   @Input('dbDraggable') dragzone? : DragzoneDirective;
   @Input() itemData? : unknown;
 
-  constructor(private elementRef: ElementRef, private mouseInSvgService:MouseInSvgService) { }
+  constructor(public elementRef: ElementRef, private mouseInSvgService:MouseInSvgService) { }
 
   ngAfterViewInit(){
     this.dragzone?.outside.subscribe(()=> this.reset())
@@ -37,10 +37,8 @@ export class DraggableDirective implements AfterViewInit {
   @HostListener('document:mousemove', ['$event'])
   drag(event: MouseEvent){
     if (this.dragging){
-      console.log("it goes")
       const mouseposition = this.dragzone?.isSVG ? this.mouseInSvgService.svgPointFromMouseEvent(event) : new Point(event.pageX, event.pageY);
       this.elementRef.nativeElement.style = `z-index:2000000;pointer-events:none; transform: translate(${(mouseposition.x- this.anchor!.x!) }px, ${(mouseposition.y - this.anchor!.y)}px)`;
-      console.log(mouseposition.x- this.anchor!.x!, mouseposition.y - this.anchor!.y);
     }
   }
 

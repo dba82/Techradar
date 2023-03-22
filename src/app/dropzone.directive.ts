@@ -37,7 +37,7 @@ export class DropzoneDirective implements AfterViewInit {
   ngAfterViewInit(){
     this.dragzone?.itemDropped.subscribe((data:any) => {
       this.active = false;
-
+      this.overDropzone = false;
       if (this.mouseOverMe(data.event)){
         this.dropped.emit(data.itemData);
       }

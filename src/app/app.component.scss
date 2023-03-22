@@ -6,8 +6,9 @@
     height: 100vh;
 }
 svg{
-    width: 80%;
+    height: 95%;
     user-select: none;
+    margin:3rem;
 }
 [db-ringsegment]{
     fill: none;
@@ -51,17 +52,26 @@ svg{
     color: white;
 }
 
-.dropzone.activeDropzone{
-    stroke-width:2;
-    stroke: black;
-}
+
 
 .dropzone.overDropzone{
-    stroke-width:10;
-    stroke: black;
-    stroke-dasharray: 1 1 1;
+    stroke-width:5;
+    stroke: silver;
+    stroke-dasharray: 4;
 }
 
 .isDragging{
     cursor: none !important;
+}
+
+.background-text{
+    font-size: 80pt;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-weight: bold;
+    opacity: 0.4;
+}
+
+.activeDragzone{
+    fill:rgba(238, 238, 238, 0.3);
 }

@@ -5,7 +5,7 @@ import { TooltipService } from '../tooltip.service';
 @Component({
   selector: 'db-tech-sector-lists',
   templateUrl: './tech-sector-lists.component.html',
-  styleUrls: ['./tech-sector-lists.component.css']
+  styleUrls: ['./tech-sector-lists.component.scss']
 })
 export class TechSectorListsComponent {
   @Input() sector? : any;

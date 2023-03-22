@@ -1,17 +1,27 @@
 <div xmlns="http://www.w3.org/1999/xhtml" id="container">
-    <h1>{{sector.key}} <span class="add-button">+</span></h1>
+    <h1>{{sector.key}} <span class="add-button"
+      (click)="dataService.addCategory('Neue Kategorie')">+</span></h1>
     <main>
-    <section *ngFor="let section of dataService.states" >
-      <h2 class="{{section}}">{{section}} 
-        <span class="add-button">+</span>
+    <section *ngFor="let state of dataService.states" >
+      <h2 class="{{state.name}} state" contentEditable #self
+      (blur)="state.name = self.innerText">
+      {{state.name.toUpperCase()}} 
+        <span class="add-button"
+        (click)="dataService.addScalaCategoryAfter('Neu', state.name)">+</span>
       </h2>
       <ul>
-        <li *ngFor="let item of sector.value[section]" 
+        <li *ngFor="let item of sector.value[state.name]" 
         (mouseenter)="tooltipService.tooltipForItem(item)?.open(); item.selected = true;"
         (mouseleave)="tooltipService.tooltipForItem(item)?.close(); item.selected = false;" >
-          <span [class]="{selected: item?.selected}" >{{item?.number}}. {{item?.name}}</span>
+          <span [class]="{selected: item?.selected}" 
+          
+          >{{item?.number}}. 
+          <span
+          contentEditable #self
+          (blur)="item.name = self.innerText">{{item?.name}}</span>
+          </span>
         </li>
-        <li class="add-button">+</li>
+        <li class="add-button" (click)="dataService.addItemToScalaInCategory(state.name, sector.key)">+</li>
       </ul>
     </section>
   </main>

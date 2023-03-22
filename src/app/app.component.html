@@ -1,6 +1,36 @@
 
 <svg viewBox="-2000 -1000 5000 4000" #svg [class]="{isDragging: isDragging}">
   <g db-ringsegment
+  [endAngle]="360"
+  [innerRadius]="0"
+  [outerRadius]="1000"
+  [x]="1000"
+  [y]="1000"
+  dbRingsegmentContainer="column">
+
+  <g *ngFor="let state of dataService.states; index as i;" 
+    class="ring"  
+    [endAngle]="360"
+    [x]="1000"
+    [y]="1000"
+    db-ringsegment 
+    [dbRelativeSize]="state.relativeSize"
+    dbGeometry
+    #geo="dbGeometry"
+    >
+    <text 
+      class="background-text"
+      [attr.x]="geo.rowCenter(geo.oClock(6)).x"
+      [attr.y]="geo.rowCenter(geo.oClock(6)).y"
+      [class]="state.name"
+
+      >
+      {{state.name.toUpperCase()}}
+  </text>
+</g>
+</g>
+
+  <g db-ringsegment
     [endAngle]="360"
     [innerRadius]="0"
     [outerRadius]="1000"
@@ -30,12 +60,13 @@
         <db-tech-sector-lists [sector]="sector"></db-tech-sector-lists>
       </foreignObject>
 
-      <g *ngFor="let section of dataService.states;"
+      <g *ngFor="let state of dataService.states;"
         db-ringsegment
-        dbRelativeSize
+        [dbRelativeSize]="state.relativeSize"
         [dbDropzone]="dz"
-        (dropped)="dataService.changeScalaCategory($event, getValueForIn(section, sector))"
-        [dbGrid]="rs.outerRadius/50"
+        (dropped)="dataService.changeScalaCategory($event, getValueForIn(state.name, sector))"
+        [dbGrid]="rs.outerRadius/40"
+        [randomPlacement]="true"
 
         #grid="grid">
 
@@ -48,7 +79,7 @@
           </circle>
         </g>
 
-        <g *ngFor="let item of getValueForIn(section, sector); index as i;"
+        <g *ngFor="let item of getValueForIn(state.name, sector); index as i;"
           dbGridItem
           #gi="gridItem"
           #tooltip="ngbTooltip"
@@ -59,21 +90,21 @@
           (mouseenter)="item!.selected = true"
           (mouseleave)="item!.selected = false"
           [dbDraggable]="dz"
-          [itemData] = "{item: item, formerCategory: getValueForIn(section, sector)}"
+          [itemData] = "{item: item, formerCategory: getValueForIn(state.name, sector)}"
           >
 
           <circle
             [attr.cx]="gi.position?.x"
             [attr.cy]="gi.position?.y"
             [attr.r]="grid.elementRadius"
-            class="{{section}}"
+            class="{{state.name}}"
             >
           </circle>
           <text
             class="icon-number"
             [attr.x]="gi.position?.x" 
             [attr.y]="gi.position?.y" 
-            [style]="{'font-size': grid.elementRadius ? +grid.elementRadius : 10}"
+            [style]="{'font-size': grid.elementRadius ? +grid.elementRadius*1.3 : 10}"
           > 
             {{item?.number}}
           </text>
