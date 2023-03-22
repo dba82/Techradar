@@ -4,7 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DataService {
-  data = {
+  data : {
+    [key:string] : {
+      [key:string] : {number: number, name: string, selected:boolean}[]
+    }
+  }= {
     "Data Stores": {
         "hold": [
             {
@@ -412,9 +416,31 @@ export class DataService {
     }
 }
 
-states  = [ 'adopt', 'trial','assess','hold'] as const;
-  addCategory(name:string){
+states  = [ 'adopt', 'trial','assess','hold'] as any;
+  scalaObject(){
+    return this.states.reduce((a:Record<string, any>,b:string)=> a[b]=[], {} as Record<string, any>);
+  }
 
+  changeScalaCategory(event:any, newCategory:any){
+    const index = event.formerCategory.indexOf(event.item);
+    event.formerCategory.splice(index, 1);
+    newCategory.push(event.item);
+    this.data = {...this.data};
+    console.log(event, newCategory, this.data)
+
+  }
+
+  addScalaCategoryAfter(name:string, after:string){
+    const index = this.states.indexOf(after as any);
+    this.states = [...this.states].splice(index, 0, name as any);
+    let key : keyof typeof this.data;
+    for (key in this.data){
+      this.data[key][name] = [] as any[];
+    }
+    this.data = {...this.data}
+  }
+  addCategory(name:string){
+    this.data = {...this.data, [name]: this.scalaObject()}
   }
 
 }
@@ -557,14 +583,14 @@ function techrange(min:number, max:number) : ({number: number, name: string, sel
       [this.states[1]]:techrange(70,71),
       [this.states[0]]: techrange(71,74)
     },
-    
+
     "Languages4" : {
       [this.states[3]]: techrange(59,69),
       [this.states[2]]: techrange(69, 70),
       [this.states[1]]:techrange(70,71),
       [this.states[0]]: techrange(71,74)
     },
-    
+
     "Languages5" : {
       [this.states[3]]: techrange(59,69),
       [this.states[2]]: techrange(69, 70),
@@ -577,14 +603,14 @@ function techrange(min:number, max:number) : ({number: number, name: string, sel
       [this.states[1]]:techrange(70,71),
       [this.states[0]]: techrange(71,74)
     },
-    
+
     "Languages7" : {
       [this.states[3]]: techrange(59,69),
       [this.states[2]]: techrange(69, 70),
       [this.states[1]]:techrange(70,71),
       [this.states[0]]: techrange(71,74)
     },
-    
+
     "Languages8" : {
       [this.states[3]]: techrange(59,69),
       [this.states[2]]: techrange(69, 70),

@@ -33,7 +33,7 @@ export class GridDirective implements OnChanges{
     this.items?.forEach(item=>this.placeOnGrid(item))
     return result;
   }
-  
+
   placeOnGrid(item: GridItemDirective){
     const freePositions = this.points.filter(point=>point[1]);
     const position = freePositions[Math.floor(Math.random()*freePositions.length)];
@@ -42,6 +42,12 @@ export class GridDirective implements OnChanges{
   }
 
   ngOnChanges(){
-    setTimeout(()=>this.gridForElementradius(Number(this.elementRadius)),0)
+    setTimeout(()=>this.gridForElementradius(Number(this.elementRadius)),0);
+
+  }
+  ngAfterContentInit(){
+    this.items?.changes.subscribe(item=> {
+      this.placeOnGrid(item.last);
+    })
   }
 }
