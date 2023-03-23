@@ -3,9 +3,9 @@
       (click)="dataService.addCategory('Neue Kategorie')">+</span></h1>
     <main>
     <section *ngFor="let state of dataService.states" >
-      <h2 class="{{state.name}} state" contentEditable #self
-      (blur)="state.name = self.innerText">
-      {{state.name.toUpperCase()}} 
+      <h2 class="{{state.name}} state" >
+      <span contentEditable #self
+      (blur)="dataService.changeScalaCategoryNameFromTo(state.name,self.innerText)">{{state.name.toUpperCase()}} </span>
         <span class="add-button"
         (click)="dataService.addScalaCategoryAfter('Neu', state.name)">+</span>
       </h2>

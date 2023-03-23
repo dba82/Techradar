@@ -19,7 +19,7 @@
     #geo="dbGeometry"
     >
     <text 
-      class="background-text"
+      class="background-text state"
       [attr.x]="geo.rowCenter(geo.oClock(6)).x"
       [attr.y]="geo.rowCenter(geo.oClock(6)).y"
       [class]="state.name"
@@ -98,6 +98,7 @@
             [attr.cy]="gi.position?.y"
             [attr.r]="grid.elementRadius"
             class="{{state.name}}"
+            class="state"
             >
           </circle>
           <text

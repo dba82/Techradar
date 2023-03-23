@@ -433,16 +433,31 @@ states  = [ {name:'adopt', relativeSize: 1}, {name:'trial', relativeSize: 1},{na
     this.data = {...this.data};
   }
 
-  addScalaCategoryAfter(name:string, after:string){
-//WENN ICH DAS TUE; DANN WERDEN DIE ITEMS NICHT NEU ANGEORDNET!!!
+  changeScalaCategoryNameFromTo(oldName:string, newName:string){
+    const object = this.states.find((x:any)=>x.name === oldName);
+    object.name = newName;
+    let key : keyof typeof this.data;
+    for (key in this.data){
+      this.data[key] = {...this.data[key]}
+      this.data[key][newName] = [...this.data[key][oldName]];
+      //delete this.data[key][oldName];
+    }
+    this.data = {...this.data};
+    this.states = [...this.states];
+    console.log(this.states, this.data);
 
+
+  }
+
+  addScalaCategoryAfter(name:string, after:string){
     this.counter += 1;
     name = name + this.counter;
     const index = this.states.findIndex((x:any)=>x.name === after);
-    this.states.splice(index, 0, {name:name, relativeSize:1} );
+    this.states.splice(index+1, 0, {name:name, relativeSize:1} );
     this.states = [...this.states];
     let key : keyof typeof this.data;
     for (key in this.data){
+      this.data[key] = {...this.data[key]}
       this.data[key][name] = [] as any[];
     }
     this.data = {...this.data}

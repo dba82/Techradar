@@ -44,19 +44,20 @@ export class GridDirective implements OnChanges{
 
   placeOnGrid(item: GridItemDirective){
     const freePositions = this.points.filter(isFree);
-    if (freePositions.length){
-      const position = freePositions[Math.floor(Math.random()*freePositions.length)];
-      item.position = position[0];
-      position[1] = item;
+    if (item){
+      if (freePositions.length){
+        const position = freePositions[Math.floor(Math.random()*freePositions.length)];
+        item.position = position[0];
+        position[1] = item;
+      }
+      else if (this.offsetLevel < 1){
+        this.offsetLevel += .1;
+        this.points = this.points.concat(this.gridForElementradius(Number(this.elementRadius), this.offsetLevel));
+        this.placeOnGrid(item);
+      } else {
+        window.alert("Es ist kein Platz mehr frei!")
+      }
     }
-    else if (this.offsetLevel < 1){
-      this.offsetLevel += .1;
-      this.points = this.points.concat(this.gridForElementradius(Number(this.elementRadius), this.offsetLevel));
-      this.placeOnGrid(item);
-    } else {
-      window.alert("Es ist kein Platz mehr frei!")
-    }
-
   }
 
   placeCloseTo(item:GridItemDirective, point:{x:number, y:number}){
@@ -75,7 +76,7 @@ export class GridDirective implements OnChanges{
   ngAfterContentInit(){
     if (this.randomPlacement){
       this.items?.changes.subscribe(item=> {
-        if (!item.last.position){
+        if (!item?.last?.position){
           this.placeOnGrid(item.last);
         }
       })
