@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, Host, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { DragzoneDirective } from './dragzone.directive';
-import { MouseInSvgService } from './mouse-in-svg.service';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { MouseInSvgService } from '../mouse/mouse-in-svg.service';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 @Directive({
   selector: '[dbDropzone]'

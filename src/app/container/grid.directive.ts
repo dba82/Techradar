@@ -1,7 +1,7 @@
 import { ContentChildren, Directive, Inject, Input, OnChanges, QueryList, Self } from '@angular/core';
 import { GridItemDirective } from './grid-item.directive';
-import { Point } from './point';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { Point } from '../geometry/point';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 function isFree(pointsArrayItem:any){
   return !pointsArrayItem[1];

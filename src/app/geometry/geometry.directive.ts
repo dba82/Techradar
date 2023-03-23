@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Inject, OnChanges, OnInit, Self } from '@angular/core';
 import { Point } from './point';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 @Directive({
   selector: '[dbGeometry]',
@@ -9,8 +9,8 @@ import { RingsegmentComponent } from './ringsegment/ringsegment.component';
 export class GeometryDirective{
   constructor(@Self() @Inject(RingsegmentComponent) public ringsegment: RingsegmentComponent) { }
 
+  private ADJACENT_BOX_MIN_HEIGHT = 300;
   get boundingbox(){
-    // funktioniert leider nicht :( vielleicht aber jetzt doch
     return this.ringsegment.pathElement?.nativeElement.getBBox ? this.ringsegment.pathElement?.nativeElement.getBBox() : {x:0, y:0, width:0, height:0};
   }
 
@@ -54,7 +54,7 @@ export class GeometryDirective{
   }
 
   oClock(n:number){
-    return (n/12)*(this.ringsegment.startAngle + this.ringsegment.angleSize)
+    return ((n+6 % 12)/12)*(this.ringsegment.startAngle + this.ringsegment.angleSize)
   }
 
   point(angle:number, length:number){
@@ -76,9 +76,16 @@ export class GeometryDirective{
     const p1 = this.point(this.ringsegment.startAngle, this.ringsegment.outerRadius + distance);
     const p2 = this.point(this.ringsegment.endAngle, this.ringsegment.outerRadius + distance);
 
+    if (this.midAngle === 180){
+      return this.ringsegment.y - this.ringsegment.outerRadius - distance - (this.height > this.ADJACENT_BOX_MIN_HEIGHT ? this.height : this.ADJACENT_BOX_MIN_HEIGHT);
+    }
+
     return  Math.min(p1.y,p2.y)
   }
   setOffPoint(width:number, distance:number){
+    if (this.midAngle === 180){
+      return this.ringsegment.x;
+    }
     const p1 = this.point(this.ringsegment.startAngle, this.ringsegment.outerRadius);
     const p2 = this.point(this.ringsegment.endAngle, this.ringsegment.outerRadius);
     
@@ -99,7 +106,7 @@ export class GeometryDirective{
         x: this.setOffPoint(width, distance),
         y: this.hangingPoint(distance),
         width: width,
-        height: this.height
+        height: this.height > this.ADJACENT_BOX_MIN_HEIGHT ? this.height : this.ADJACENT_BOX_MIN_HEIGHT
       }
   }
 

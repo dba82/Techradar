@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { Point } from './point';
+import { Point } from '../geometry/point';
 
 @Directive({
   selector: '[dbGridItem]',

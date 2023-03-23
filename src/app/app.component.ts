@@ -1,9 +1,9 @@
 import {AfterViewChecked, Component, ContentChild, ElementRef, ViewChild} from '@angular/core';
-import { DataService } from './data.service';
-import { Point } from './point';
+import { DataService } from './data/data.service';
+import { Point } from './geometry/point';
 import {NgbTooltip} from "@ng-bootstrap/ng-bootstrap";
-import { MouseInSvgService } from './mouse-in-svg.service';
-import { TooltipService } from './tooltip.service';
+import { MouseInSvgService } from './mouse/mouse-in-svg.service';
+import { TooltipService } from './tooltip/tooltip.service';
 
 enum states{
   HOLD = 'hold',
@@ -16,8 +16,8 @@ enum states{
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [MouseInSvgService]
+  providers: [ MouseInSvgService ]
 })
 export class AppComponent{
-
+  showGrid = false;
 }

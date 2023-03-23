@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, HostListener, Input } from '@angular/core';
 import { DragzoneDirective } from './dragzone.directive';
-import { MouseInSvgService } from './mouse-in-svg.service';
-import { Point } from './point';
+import { MouseInSvgService } from '../mouse/mouse-in-svg.service';
+import { Point } from '../geometry/point';
 
 @Directive({
   selector: '[dbDraggable]'

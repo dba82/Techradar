@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { DataService } from '../data.service';
-import { TooltipService } from '../tooltip.service';
+import { DataService } from '../data/data.service';
+import { TooltipService } from '../tooltip/tooltip.service';
 
 @Component({
   selector: 'db-tech-sector-lists',

@@ -1,8 +1,11 @@
 <div xmlns="http://www.w3.org/1999/xhtml" id="container">
     <h1>
-      <span contentEditable #self
-      (blur)="dataService.changeCategoryNameFromTo(sector.key,self.innerText)">
-      {{sector.key}}</span>
+      <span 
+        contentEditable 
+        #self
+        (blur)="dataService.changeCategoryNameFromTo(sector.key,self.innerText)">
+        {{sector.key}}
+      </span>
       <span class="add-button"
         (click)="dataService.addCategory('Neue Kategorie')">+</span>
       </h1>
@@ -27,7 +30,11 @@
           (blur)="item.name = self.innerText">{{item?.name}}</span>
           </span>
         </li>
-        <li class="add-button" (click)="dataService.addItemToScalaInCategory(state.name, sector.key)">+</li>
+        <li 
+          class="add-button" 
+          (click)="dataService.addItemToScalaInCategory(state.name, sector.key)">
+          <span class="button">+</span>
+        </li>
       </ul>
     </section>
   </main>

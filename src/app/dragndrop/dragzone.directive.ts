@@ -1,6 +1,6 @@
 import { AfterViewInit, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, OnInit, Optional, Output, QueryList } from '@angular/core';
 import { DraggableDirective } from './draggable.directive';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 @Directive({
   selector: '[dbDragzone]',

@@ -10,9 +10,6 @@
   
     <g *ngFor="let state of dataService.states; index as i;" 
       class="ring"  
-      [endAngle]="360"
-      [x]="1000"
-      [y]="1000"
       db-ringsegment 
       [dbRelativeSize]="state.relativeSize"
       dbGeometry
@@ -20,10 +17,9 @@
       >
       <text 
         class="background-text state"
-        [attr.x]="geo.rowCenter(geo.oClock(6)).x"
-        [attr.y]="geo.rowCenter(geo.oClock(6)).y"
+        [attr.x]="geo.rowCenter(geo.oClock(12)).x"
+        [attr.y]="geo.rowCenter(geo.oClock(12)).y"
         [class]="state.name"
-  
         >
         {{state.name.toUpperCase()}}
     </text>
@@ -53,10 +49,10 @@
         >
   
         <foreignObject
-        [attr.x]="grs.adjacentBox(1200,40).x"
-        [attr.y]="grs.adjacentBox(1200,40).y"
-        [attr.width]="1200"
-        [attr.height]="grs.height">
+          [attr.x]="grs.adjacentBox(1200,40).x"
+          [attr.y]="grs.adjacentBox(1200,40).y"
+          [attr.width]="1200"
+          [attr.height]="grs.adjacentBox(1200,40).height">
           <db-tech-sector-lists [sector]="sector"></db-tech-sector-lists>
         </foreignObject>
   
@@ -75,15 +71,14 @@
               *ngFor="let p of grid.points"
               [attr.cx]="p[0].x"
               [attr.cy]="p[0].y"
-              r="0.1">
+              r="5"
+              fill="black">
             </circle>
           </g>
   
           <g *ngFor="let item of getValueForIn(state.name, sector); index as i;"
             dbGridItem
-            #gi="gridItem"
-            #tooltip="ngbTooltip"
-            [dbTooltipRemote]="{tooltip: tooltip, item: item}"
+            [dbTooltipRemote]="{ tooltip: tooltip, item: item }"
             [ngbTooltip]="item?.name"
             container="body"
             triggers="mouseenter:mouseleave"
@@ -91,6 +86,9 @@
             (mouseleave)="item!.selected = false"
             [dbDraggable]="dz"
             [itemData] = "{item: item, formerCategory: getValueForIn(state.name, sector)}"
+
+            #gi="gridItem"
+            #tooltip="ngbTooltip"
             >
   
             <circle

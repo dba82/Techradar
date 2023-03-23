@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Path } from '../path';
-import { Point } from '../point';
+import { Path } from '../geometry/path';
+import { Point } from '../geometry/point';
 
 @Component({
   selector: '[db-ringsegment]',
@@ -9,9 +9,9 @@ import { Point } from '../point';
   exportAs: 'db-ringsegment'
 })
 export class RingsegmentComponent {
-  @Input() pointerEvents? : string;
   @ViewChild('pathElement') pathElement? : ElementRef<SVGPathElement>;
 
+  @Input() pointerEvents? : string;
   @Input() set x(x:number){
     this._x = x;
     this._path = String(Path.ringSegment(new Point(this.x,this.y), this.outerRadius, this.innerRadius, this.startAngle, this.endAngle));

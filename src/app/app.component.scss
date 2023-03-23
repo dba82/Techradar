@@ -1,0 +1,20 @@
+:root{
+    --h-font-size : 30pt;
+}
+
+#dgx{
+    height:  30pt;
+}
+
+h1{
+    font-size:  30pt;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+}
+header > *:last-child{
+    justify-self: flex-end;
+}

@@ -1,7 +1,7 @@
 .state{
-    fill: hotpink;
+    fill: rgb(252,77,6);
     stroke: none;
-    color: hotpink;
+    color: rgb(252,77,6);
 }
 .adopt{
     fill: #5ba300;
@@ -44,7 +44,8 @@ h1:hover .add-button, h2:hover .add-button, ul:hover .add-button{
     user-select:none; 
     font-size: 25pt; 
     height:100%; 
-    width: 100%
+    width: 100%;
+    overflow:scroll;
 }
 h1{
     font-size: 35pt;

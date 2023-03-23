@@ -1,1 +1,16 @@
-<db-tech-radar></db-tech-radar>
+<header>
+  <div>
+  <img id="dgx" src="assets/dg-nexolution-logo.svg">
+</div>
+<h1>Techtalk </h1>
+
+<div>
+  <p>David Baßler</p>
+  <p>23. März 2023</p>
+</div>
+</header>
+<main>
+
+<db-tech-radar [showGrid]="showGrid"></db-tech-radar>
+<button (click)="showGrid = !showGrid">Grid</button>
+</main>

@@ -1,11 +1,11 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ContentChildren, Directive, Host, Input, OnInit, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, ContentChildren, Directive, Host, Input, OnChanges, OnInit, QueryList } from '@angular/core';
 import { RelativeSizeDirective } from './relative-size.directive';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 @Directive({
   selector: '[dbRingsegmentContainer]'
 })
-export class RingsegmentContainerDirective implements AfterContentChecked{
+export class RingsegmentContainerDirective implements OnChanges, AfterContentChecked{
   
   @Input('dbRingsegmentContainer') direction : 'column'|'row'|'' = 'row';
 

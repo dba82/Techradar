@@ -1,5 +1,5 @@
 import { Directive, Inject, Input, Self } from '@angular/core';
-import { RingsegmentComponent } from './ringsegment/ringsegment.component';
+import { RingsegmentComponent } from '../ringsegment/ringsegment.component';
 
 @Directive({
   selector: '[dbRelativeSize]'
