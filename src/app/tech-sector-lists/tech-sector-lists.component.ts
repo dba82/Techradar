@@ -10,4 +10,8 @@ import { TooltipService } from '../tooltip.service';
 export class TechSectorListsComponent {
   @Input() sector? : any;
   constructor(public dataService:DataService, public tooltipService :TooltipService){}
+
+  googleSearchLink(name:string){
+    return 'https://www.google.com/search?q=' + name + '+IT';
+  }
 }

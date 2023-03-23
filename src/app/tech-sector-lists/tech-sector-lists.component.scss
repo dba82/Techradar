@@ -26,8 +26,8 @@
 }
 
 .selected{
-    background-color: black;
-    color: white;
+    background-color: black !important;
+    color: white !important;
 }
 
 
@@ -72,4 +72,9 @@ ul{
 }
 ul li{
     lineheight:1;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
 }

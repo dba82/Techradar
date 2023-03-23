@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 export class DataService {
   data : {
     [key:string] : {
-      [key:string] : {number: number, name: string, selected:boolean}[]
-    }
+      [key:string] : {number: number, name: string, selected:boolean}[]|undefined
+    }|undefined
   }= {
     "Data Stores": {
         "hold": [
@@ -438,15 +438,24 @@ states  = [ {name:'adopt', relativeSize: 1}, {name:'trial', relativeSize: 1},{na
     object.name = newName;
     let key : keyof typeof this.data;
     for (key in this.data){
-      this.data[key] = {...this.data[key]}
-      this.data[key][newName] = [...this.data[key][oldName]];
-      //delete this.data[key][oldName];
+        this.data[key] = {...this.data[key]}
+        this.data[key]![newName] = [...this.data[key]![oldName]!];
+        this.data[key]![oldName] = undefined; 
+        delete this.data[key]![oldName];
     }
     this.data = {...this.data};
-    this.states = [...this.states];
-    console.log(this.states, this.data);
+  }
 
-
+  changeCategoryNameFromTo(oldName:string, newName:string){
+    let key : keyof typeof this.data;
+    for (key in this.data){
+        if (key === oldName){
+            this.data[newName] = this.data[key];
+            this.data[key] = undefined; 
+            delete this.data[key];
+        }
+    }
+    this.data = {...this.data};
   }
 
   addScalaCategoryAfter(name:string, after:string){
@@ -458,7 +467,7 @@ states  = [ {name:'adopt', relativeSize: 1}, {name:'trial', relativeSize: 1},{na
     let key : keyof typeof this.data;
     for (key in this.data){
       this.data[key] = {...this.data[key]}
-      this.data[key][name] = [] as any[];
+      this.data[key]![name] = [] as any[];
     }
     this.data = {...this.data}
   }
@@ -470,7 +479,7 @@ states  = [ {name:'adopt', relativeSize: 1}, {name:'trial', relativeSize: 1},{na
 
   addItemToScalaInCategory(state:string, category:string ){
     this.currentHighestNumber += 1;
-    this.data[category][state].push({
+    this.data[category]?.[state]?.push({
         number: this.currentHighestNumber,
         name: 'Neues Item',
         selected: false

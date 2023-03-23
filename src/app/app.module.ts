@@ -15,6 +15,7 @@ import { DraggableDirective } from './draggable.directive';
 import { DropzoneDirective } from './dropzone.directive';
 import { DragzoneDirective } from './dragzone.directive';
 import { TooltipRemoteDirective } from './tooltip-remote.directive';
+import { TechRadarComponent } from './tech-radar/tech-radar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TooltipRemoteDirective } from './tooltip-remote.directive';
     DraggableDirective,
     DropzoneDirective,
     DragzoneDirective,
-    TooltipRemoteDirective
+    TooltipRemoteDirective,
+    TechRadarComponent
   ],
   imports: [
     FormsModule,

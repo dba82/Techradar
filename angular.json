@@ -1,17 +1,17 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "schematics": {
-    "@schematics/angular:component": {
-            "styleext": "scss"       
-      }  
-},
+
   "newProjectRoot": "projects",
   "projects": {
     "Techradar": {
       "projectType": "application",
-      "schematics": {},
-      "root": "",
+      "schematics": {
+        "@schematics/angular:component": {
+                "style": "scss"       
+          }  
+    },
+    "root": "",
       "sourceRoot": "src",
       "prefix": "db",
       "architect": {

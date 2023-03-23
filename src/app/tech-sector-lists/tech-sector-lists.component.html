@@ -1,6 +1,11 @@
 <div xmlns="http://www.w3.org/1999/xhtml" id="container">
-    <h1>{{sector.key}} <span class="add-button"
-      (click)="dataService.addCategory('Neue Kategorie')">+</span></h1>
+    <h1>
+      <span contentEditable #self
+      (blur)="dataService.changeCategoryNameFromTo(sector.key,self.innerText)">
+      {{sector.key}}</span>
+      <span class="add-button"
+        (click)="dataService.addCategory('Neue Kategorie')">+</span>
+      </h1>
     <main>
     <section *ngFor="let state of dataService.states" >
       <h2 class="{{state.name}} state" >
@@ -15,7 +20,8 @@
         (mouseleave)="tooltipService.tooltipForItem(item)?.close(); item.selected = false;" >
           <span [class]="{selected: item?.selected}" 
           
-          >{{item?.number}}. 
+          >
+          <a [href]="googleSearchLink(item?.name)" target="_blank">{{item?.number}}. </a> 
           <span
           contentEditable #self
           (blur)="item.name = self.innerText">{{item?.name}}</span>

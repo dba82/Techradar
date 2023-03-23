@@ -18,22 +18,6 @@ enum states{
   styleUrls: ['./app.component.scss'],
   providers: [MouseInSvgService]
 })
-export class AppComponent implements AfterViewChecked{
-  @ViewChild('svg') svg? : ElementRef;
+export class AppComponent{
 
-  constructor(public dataService: DataService,private mouseInSvgService:MouseInSvgService){}
-
-  ngAfterViewChecked(){
-    const box = this.svg?.nativeElement.getBBox();
-    this.svg?.nativeElement.setAttribute('viewBox', `${box.x} ${box.y} ${box.width} ${box.height}`);
-  }
-  ngAfterViewInit(){
-    this.mouseInSvgService.setSvg(this.svg?.nativeElement);
-  }
-
-  showGrid = false;
-  isDragging = false;
-  getValueForIn(s:any, t:any){
-    return t.value[s];
-  }
 }
